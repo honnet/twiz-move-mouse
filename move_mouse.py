@@ -1,7 +1,7 @@
 from oscAPI import listen, readQueue, bind, init
-from pyautogui import position as pos
-from pyautogui import moveTo as move
-from pyautogui import click
+from pymouse import PyMouse
+M = PyMouse()
+W, H = M.screen_size()
 
 
 def main():
@@ -16,8 +16,8 @@ def main():
 def update_mouse(message, *args):
     m = message[2:]
     print m
-    x, y = pos()
-    move(x + m[0] * 10 - 5, y + m[1] * 10 - 5)
+    x, y = M.position()
+    M.move(x + m[0] * 10 - 5, y + m[1] * 10 - 5)
 
 if __name__ == '__main__':
     main()
