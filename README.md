@@ -1,4 +1,4 @@
-requires python-xlib (apt install) and pyautogui (pip install)
+requires python-xlib (apt install) and PyUserInput (pip install)
 
 only tested using simulator, no guarantee the orientation makes any sense, and
 choosing how to click (preferably without changing position) is yet to be
