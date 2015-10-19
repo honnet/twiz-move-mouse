@@ -3,13 +3,13 @@ from pymouse import PyMouse
 from math import cos, sin
 M = PyMouse()
 W, H = M.screen_size()
+# mx, my = M.position()
 
-twiz_max = { "up":0.0627876896915,   "down": 0.322699455539,     # az max, az min
-             "left":0.183024346828, "right": 0.257259473205 }   # rz min, rz max
+x_min = 0.535187304020 # left
+x_max = 0.616868846118 # right
 
-
-mi = 999
-ma = 0
+y_min = 0.478545814753 # low
+y_max = 0.584199279547 # high
 
 def main():
     init()
@@ -23,20 +23,15 @@ def main():
 
 
 def update_mouse(message, *args):
-    mx, my = M.position()
-    az, rz = message[2:]
-    rz += .5 # to get range [0;1]
-    az += .5
-    az = sin(az) # improves range
+    global x_min, y_min, x_max, y_max, W, H
+    y_pos, x_pos = message[2:] # value recived from the twiz
 
-    global ma
-    global mi
-    ma = max(ma, rz)
-    mi = min(mi, rz)
+    x_pos = ( (x_pos + 0.5 - x_min) / (x_max-x_min) ) * W
+    y_pos = ( (y_pos + 0.5 - y_min) / (y_max-x_min) ) * H
+    # TODO : invert y, smoothen, improve range...
 
-    print rz, '\t', mi, ma
-    #print 'twiz data:', az, rz, '\tmouse:', mx, my
-    # M.move(x + m[0] * 10 - 5, y + m[1] * 10 - 5)
+    M.move(x_pos, y_pos)
+    print x_pos, '\t', y_pos
 
 if __name__ == '__main__':
     main()
