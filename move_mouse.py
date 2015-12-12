@@ -13,10 +13,11 @@ y_max = 0.584199279547 # high
 
 def main():
     init()
-    oscid = listen(port=10001)
+    host='192.168.42.68'
+    oscid = listen(host, port=3333)
     bind(oscid, update_mouse, '/update')
 
-    # TODO: compute the 4 max values and the ranges
+    # compute the 4 max values and the ranges
 
     while True:
         readQueue(oscid)
